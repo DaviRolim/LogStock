@@ -13,7 +13,11 @@
           </div>
           <div class="mb-2">
             <v-icon left>timeline</v-icon>
-            <nuxt-link to="/inspire" tag="span" style="cursor: pointer">Variação 5 dias: R$ 85.21</nuxt-link>
+            <nuxt-link to="/inspire" tag="span" style="cursor: pointer">Ganho do dia: R$ 25.21 (1.2%)</nuxt-link>
+          </div>
+          <div class="mb-2">
+            <v-icon left>timeline</v-icon>
+            <nuxt-link to="/inspire" tag="span" style="cursor: pointer">Ganho Total: R$ 321.48 (3.68%)</nuxt-link>
           </div>
           <div>
             <v-icon left>attach_money</v-icon>
