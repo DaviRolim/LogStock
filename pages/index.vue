@@ -4,7 +4,7 @@
     <v-flex xs12 sm4 class="mb-4">
       <v-card color="grey darken-2">
         <v-card-title>
-          <h4 class="headline">Davi Rolim</h4>
+          <h4 class="headline" v-if="user">{{user.name}}</h4>
         </v-card-title>
         <v-card-text>
           <div class="mb-2">
@@ -74,6 +74,7 @@ export default {
           { title: '10/04/2018', subtitle: "GGBR4 2.35% (0.33) / GOAU4 2.88% (0.16) alteração do patromonio: R$ ", valor: +73.97 },
           { title: '09/04/2018', subtitle: "GGBR4 -1.35% (-0.20) / GOAU4 -0.95% (-0.07) alteração do patromonio: R$ ", valor:-47.12 }
         ],
+      user: null, 
       chartData: {
         labels: ['One', 'Two', 'Three','Four', 'Five'],
         datasets: [
@@ -100,6 +101,17 @@ export default {
         }
       }
     }
+  },
+  created () {
+    this.$axios.$get('http://localhost:3000/api/v1/users/2')
+    .then(res => {
+      const { user } = res
+      this.user = user
+      console.log(this.user)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   mounted () {
     this.fillData()
