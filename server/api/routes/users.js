@@ -3,8 +3,8 @@ import { Router } from 'express'
 const router = Router()
 
 const users = [
-  {id: 1, name: 'Davi Rolim' },
-  {id: 2, name: 'Johnnys Martins' },
+  { id: 1, name: 'Davi Rolim' },
+  { id: 2, name: 'Johnnys Martins' },
 ]
 
 router.get('/users', function (req, res, next) {
@@ -18,7 +18,7 @@ router.get('/users/:id', function (req, res, next) {
     return;
   }
   let user = users.find(user => user.id === id)
-  res.json({ user : user });
+  res.json({ user: user });
 })
 
 export default router
