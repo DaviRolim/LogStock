@@ -62,20 +62,26 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports) {
+
+module.exports = require("express");
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_nuxt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_nuxt__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_routes__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__api_routes__ = __webpack_require__(3);
 
 
 
@@ -90,7 +96,7 @@ app.set('port', port);
 app.use('/api/v1', __WEBPACK_IMPORTED_MODULE_2__api_routes__["a" /* default */]);
 
 // Import and Set Nuxt.js options
-let config = __webpack_require__(3);
+let config = __webpack_require__(5);
 config.dev = !("development" === 'production');
 
 async function start() {
@@ -113,12 +119,6 @@ async function start() {
 start();
 
 /***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("express");
-
-/***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
@@ -126,11 +126,58 @@ module.exports = require("nuxt");
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__users__ = __webpack_require__(4);
+
+
+
+
+const router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+router.use(__WEBPACK_IMPORTED_MODULE_1__users__["a" /* default */]);
+
+/* harmony default export */ __webpack_exports__["a"] = (router);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
+
+
+const router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
+
+const users = [{ id: 1, name: 'Davi Rolim' }, { id: 2, name: 'Johnnys Martins' }];
+
+router.get('/users', function (req, res, next) {
+  res.json(users);
+});
+
+router.get('/users/:id', function (req, res, next) {
+  const id = parseInt(req.params.id);
+  if (!id || id > users.length) {
+    res.sendStatus(404);
+    return;
+  }
+  let user = users.find(user => user.id === id);
+  res.json(user);
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (router);
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const pkg = __webpack_require__(4);
+const pkg = __webpack_require__(6);
 
-const nodeExternals = __webpack_require__(5);
+const nodeExternals = __webpack_require__(7);
 
 module.exports = {
   mode: 'universal',
@@ -200,16 +247,16 @@ module.exports = {
 };
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 module.exports = {"name":"logStockProject","version":"1.0.0","description":"My shining Nuxt.js project","author":"davirolim","private":true,"scripts":{"dev":"backpack dev","build":"nuxt build && backpack build","start":"cross-env NODE_ENV=production node server/index.js","generate":"nuxt generate","lint":"eslint --ext .js,.vue --ignore-path .gitignore .","precommit":"npm run lint"},"dependencies":{"@nuxtjs/axios":"^5.0.0","backpack-core":"^0.7.0","chart.js":"^2.7.2","express":"^4.15.3","lodash":"^4.17.5","nuxt":"^1.0.0","vue-chartjs":"^3.3.1","vuetify":"^0.17.3"},"devDependencies":{"cross-env":"^5.0.1","babel-eslint":"^8.2.1","eslint":"^4.15.0","eslint-loader":"^1.7.1","eslint-plugin-vue":"^4.0.0","stylus":"^0.54.5","stylus-loader":"^3.0.1","nodemon":"^1.11.0"}}
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(8);
 
 var scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g');
 
@@ -262,11 +309,11 @@ module.exports = function nodeExternals(options) {
 };
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var fs = __webpack_require__(7);
-var path = __webpack_require__(8);
+var fs = __webpack_require__(9);
+var path = __webpack_require__(10);
 
 exports.contains = function contains(arr, val) {
     return arr && arr.indexOf(val) !== -1;
@@ -346,65 +393,16 @@ exports.containsPattern = function containsPattern(arr, val) {
 }
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports) {
 
 module.exports = require("fs");
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
-
-/***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__users__ = __webpack_require__(12);
-
-
-
-
-const router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-router.use(__WEBPACK_IMPORTED_MODULE_1__users__["a" /* default */]);
-
-/* harmony default export */ __webpack_exports__["a"] = (router);
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_express___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_express__);
-
-
-const router = Object(__WEBPACK_IMPORTED_MODULE_0_express__["Router"])();
-
-const users = [{ id: 1, name: 'Davi Rolim' }, { id: 2, name: 'Johnnys Martins' }];
-
-router.get('/users', function (req, res, next) {
-  res.json(users);
-});
-
-router.get('/users/:id', function (req, res, next) {
-  const id = parseInt(req.params.id);
-  if (!id || id > users.length) {
-    res.sendStatus(404);
-    return;
-  }
-  let user = users.find(user => user.id === id);
-  res.json({ user: user });
-});
-
-/* harmony default export */ __webpack_exports__["a"] = (router);
 
 /***/ })
 /******/ ]);

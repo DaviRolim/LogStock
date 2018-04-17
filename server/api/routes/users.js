@@ -18,7 +18,7 @@ router.get('/users/:id', function (req, res, next) {
     return;
   }
   let user = users.find(user => user.id === id)
-  res.json({ user : user });
+  res.json(user);
 })
 
 export default router

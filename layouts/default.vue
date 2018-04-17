@@ -33,6 +33,7 @@
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
+    <v-progress-linear v-if="isLoading" :indeterminate="true" color="grey"></v-progress-linear>
     <v-content>
       <v-container>
         <nuxt />
@@ -68,6 +69,10 @@
       },
       userIsAuthenticated () {
         return true
+      },
+      isLoading () {
+        console.log(this.$store.getters.loading)
+        return this.$store.getters.loading
       }
     },
     methods: {
