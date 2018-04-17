@@ -11,7 +11,7 @@
           append-icon="search"
           autocomplete
         ></v-select>
-        <p v-if="valor">{{acao}} fechou o ultimo dia em: {{valor}}</p>
+        <p v-if="valor != 0">{{acao}} fechou o ultimo dia em: {{valor}}</p>
      </v-flex>
    </v-layout>
  </v-container> 
@@ -22,33 +22,20 @@ import lodash from 'lodash'
   export default {
     data () {
       return {
-        acao: null,
-        dados: [],
-        valor: null 
+        acao: null
       }
     },
     computed: {
       symbols () {
         return this.$store.getters['stocks/ibrx']
+      },
+      valor () {
+        return this.$store.getters['stocks/valor']
       }
     },
     watch: {
-      acao (value) {
-        this.$axios.$get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${value}&apikey=UZ17LQ6CIH0VI5DTr`)
-        .then(res => {
-          console.log(res['Time Series (Daily)'])
-          const data = res['Time Series (Daily)']
-          this.dados = lodash.map(data, (dados, index) => {
-            dados.day = index
-            return dados
-          })
-          const lastday = this.dados.splice(0,1)[0]
-          var close = +lastday['4. close']
-          this.valor = close.toFixed(2)
-        })
-        .catch(err => {
-          console.log(err)
-        })
+      async acao (value) {
+        await this.$store.dispatch('stocks/setValue', {value: value})
       }
     }
   }

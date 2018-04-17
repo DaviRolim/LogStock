@@ -16,12 +16,15 @@ export const mutations = {
 
 export const actions = {
   async setUser({commit}) {
+    commit('setLoading', true, {root: true})
     await this.$axios.$get(`http://localhost:3000/api/v1/users/${2}`)
     .then(res => {
       const user = {...res}
       commit('setUser', user)
+      commit('setLoading', false, {root: true})
     })
     .catch(err => {
+      commit('setLoading', false, {root: true})
       console.log(err)
     })
       
