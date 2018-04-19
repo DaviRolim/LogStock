@@ -102,14 +102,14 @@ export const state = () => ({
     { symbol: 'VVAR11.SA', name: 'VVAR11.SA - VIAVAREJO' },
     { symbol: 'WEGE3.SA', name: 'WEGE3.SA - WEG' },
     { symbol: 'WIZS3.SA', name: 'WIZS3.SA - WIZ S.A.' }
-    ],
-    valor: 0
+  ],
+  valor: 0
 })
 export const getters = {
-  ibrx (state) {
+  ibrx(state) {
     return state.ibrx
   },
-  valor (state) {
+  valor(state) {
     return state.valor
   }
 }
@@ -122,26 +122,25 @@ export const mutations = {
 }
 
 export const actions = {
-  async setValue({commit}, payload) {
-    commit('setLoading', true, {root: true})
+  async setValue({ commit }, payload) {
+    commit('setLoading', true, { root: true })
     await this.$axios.$get(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${payload.value}&apikey=UZ17LQ6CIH0VI5DTr`)
-    .then(res => {
-      console.log(res['Time Series (Daily)'])
-      const data = res['Time Series (Daily)']
-      let dados = []
-      dados = lodash.map(data, (dados, index) => {
-        dados.day = index
-        return dados
+      .then(res => {
+        const data = res['Time Series (Daily)']
+        let dados = []
+        dados = lodash.map(data, (dados, index) => {
+          dados.day = index
+          return dados
+        })
+        const lastday = dados.splice(0, 1)[0]
+        var close = +lastday['4. close']
+        commit('setValue', { valor: close.toFixed(2) })
+        commit('setLoading', false, { root: true })
       })
-      const lastday = dados.splice(0,1)[0]
-      var close = +lastday['4. close']
-      commit('setValue', {valor: close.toFixed(2)})
-      commit('setLoading', false, {root: true})
-    })
-    .catch(err => {
-      console.log(err)
-      commit('setLoading', false, {root: true})
-    })
+      .catch(err => {
+        console.log(err)
+        commit('setLoading', false, { root: true })
+      })
   }
 }
 

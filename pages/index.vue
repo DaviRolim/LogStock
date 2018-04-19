@@ -15,9 +15,9 @@
             <v-icon left>timeline</v-icon>
             <nuxt-link to="/inspire" tag="span" style="cursor: pointer">Ganho do dia: R$ 25.21 (1.2%)</nuxt-link>
           </div>
-          <div class="mb-2">
+          <div class="mb-2" v-if="user">
             <v-icon left>timeline</v-icon>
-            <nuxt-link to="/inspire" tag="span" style="cursor: pointer">Ganho Total: R$ 321.48 (3.68%)</nuxt-link>
+            <nuxt-link to="/inspire" tag="span" style="cursor: pointer">Ganho Total: R$ {{user.lucro}} (?.??%)</nuxt-link>
           </div>
           <div>
             <v-icon left>attach_money</v-icon>
