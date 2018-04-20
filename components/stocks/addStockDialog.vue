@@ -68,7 +68,7 @@ export default {
   },
   methods: {
     onSaveChanges () {
-      if(this.quantidade.typeOf(Number) && this.valorDaCompra.typeOf(Number)) {
+      if(!isNaN(this.quantidade) && !isNaN(this.valorDaCompra)) {
         this.dialog = false
         this.$store.dispatch('portfolio/setInPortfolio', 
         {nome: this.nome, 
