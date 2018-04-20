@@ -9,8 +9,19 @@
      </v-flex>
      <v-flex xs12 sm6 class="mb-4 pr-3" v-for="(acao, index) in portfolio" :key="index">
        <v-card raised class="white--text">
-        <v-card-title primary-title class="blue-grey darken-3">
-          <div class="headline">{{acao.nome}}</div>
+        <v-card-title class="blue-grey darken-3">
+          <h3>
+            {{acao.nome}}
+          </h3>
+          <template>
+            <v-layout>
+              <v-flex offset-xs8 offset-md8 offset-lg8 offset-sm8>
+                <v-btn flat small color="red darken-3" @click="deletePortfolio(acao)">
+                <v-icon>close</v-icon>
+              </v-btn>
+              </v-flex>
+            </v-layout>
+          </template>
         </v-card-title>
         <v-card-text>
           <div class="mb-1">Quantidade: {{acao.quantidade}}</div>
@@ -29,33 +40,36 @@
 </template>
 
 <script>
-import lodash from 'lodash'
-  export default {
-    data () {
-      return {
-        acao: null
-      }
+import lodash from "lodash";
+export default {
+  data() {
+    return {
+      acao: null
+    };
+  },
+  computed: {
+    symbols() {
+      return this.$store.getters["stocks/ibrx"];
     },
-    computed: {
-      symbols () {
-        return this.$store.getters['stocks/ibrx']
-      },
-      valor () {
-        return this.$store.getters['stocks/valor']
-      },
-      portfolio () {
-        return this.$store.getters['portfolio/portfolio']
-      }
+    valor() {
+      return this.$store.getters["stocks/valor"];
     },
-    watch: {
-      async acao (value) {
-        await this.$store.dispatch('stocks/setValue', {value: value})
-      }
-    },
-    methods: {
-      show () {
-        console.log(this.portfolio)
-      }
+    portfolio() {
+      return this.$store.getters["portfolio/portfolio"];
+    }
+  },
+  watch: {
+    async acao(value) {
+      await this.$store.dispatch("stocks/setValue", { value: value });
+    }
+  },
+  methods: {
+    deletePortfolio(acao) {
+      this.$store.dispatch("portfolio/deleteInPortfolio", {
+        nome: acao.nome,
+        user: acao.user
+      });
     }
   }
+};
 </script>

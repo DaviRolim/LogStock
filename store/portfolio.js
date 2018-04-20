@@ -22,12 +22,20 @@ export const getters = {
 export const mutations = {
   setInPortfolio(state, payload) {
     state.portfolio.push(payload)
+  },
+  deleteInPortfolio(state, payload) {
+    var index = state.portfolio
+    .findIndex(item => item.nome === payload.nome & item.user == payload.user)
+    state.portfolio.splice(index, 1)
   }
 }
 
 export const actions = {
   setInPortfolio({ commit }, payload) {
     commit('setInPortfolio', payload)
+  },
+  deleteInPortfolio ({commit}, payload) {
+    commit('deleteInPortfolio', payload)
   }
 }
 
