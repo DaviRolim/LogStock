@@ -20,9 +20,15 @@ export const getters = {
 }
 
 export const mutations = {
+  setInPortfolio(state, payload) {
+    state.portfolio.push(payload)
+  }
 }
 
 export const actions = {
+  setInPortfolio({ commit }, payload) {
+    commit('setInPortfolio', payload)
+  }
 }
 
 export const strict = false

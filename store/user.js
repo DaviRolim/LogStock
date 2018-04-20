@@ -38,7 +38,7 @@ export const actions = {
       .then(res => {
         const user = {
           ...res,
-          lucro: lucroTotal
+          lucro: lucroTotal.toFixed(2)
         }
         commit('setUser', user)
         commit('setLoading', false, { root: true })
